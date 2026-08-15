@@ -1,0 +1,39 @@
+name: Build with rM Toolchain
+
+on:
+  workflow_dispatch
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: ["eeems/remarkable-toolchain:latest-rmpp", "eeems/remarkable-toolchain:latest-rm2"]
+        include:
+          - os: "eeems/remarkable-toolchain:latest-rmpp"
+            arch: aarch64-unknown-linux-gnu
+            release_arch: aarch64
+          - os: "eeems/remarkable-toolchain:latest-rm2"
+            arch: armv7-unknown-linux-gnueabihf
+            release_arch: arm32
+    runs-on: ubuntu-latest
+
+    container:
+        image: ${{ matrix.os }}
+
+    steps:
+        - name: Checkout Code
+          uses: actions/checkout@v3
+          with:
+            submodules: true
+
+        - name: Build Application
+          run: |
+            export XOVI_REPO=/tmp/xovi
+            git clone https://github.com/asivery/xovi $XOVI_REPO
+            bash -c ". /opt/codex/*/*/environment-setup-*; qmake6; make"
+            
+        - name: Upload Build Artifact
+          uses: actions/upload-artifact@v4
+          with:
+            name: scene-assistant-${{ matrix.release_arch }}
+            path: scene-assistant.so
