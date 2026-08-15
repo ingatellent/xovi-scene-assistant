@@ -37,8 +37,8 @@ jobs:
         - name: Upload Build Artifact
           uses: actions/upload-artifact@v4
           with:
-            name: scene-assistant--${{ matrix.release_arch }}
-            path: scene-assistant-.so
+            name: scene-assistant-${{ matrix.release_arch }}
+            path: scene-assistant.so
 
   release:
     runs-on: ubuntu-latest
