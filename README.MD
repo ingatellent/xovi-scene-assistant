@@ -17,9 +17,11 @@ It's not so difficult to also render strokes from .svg files, but one needs to p
 
 PRs or suggestions are welcome, but any PR with unhashed qmd files will be rejected.
 
+## Acknowledgments
+
 The clipboard interaction as well as the initial work regarding rm_Line, rm_SceneItem and rm_SceneLineItem was originally created by HookedBehemoth <https://github.com/HookedBehemoth/xovi-sudoku>. This work was released under GPL v2, and hence that is also the license of this repository.
 
-The responsibility for the vtable discovery is moved from the QML side to the c++ side, making the use of this library much easier.
+Compared to the original work the responsibility for the vtable discovery is moved from the QML side to the c++ side, making the use of this library looking cleaner on the qml side.
 
 ## Use in mods
 
