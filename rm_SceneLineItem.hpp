@@ -17,7 +17,7 @@ struct SceneLineItem : public SceneItem {
     /* 0x21 - 0x29 */ unsigned char unk_x21; // 0 or 2
     /* 0x24 - 0x30 */ void* unk_x24[3];
     /* 0x30 - 0x48 */ Line line;
-    /* 0x78 - 0xa0 */ int unk_x78; // always 1
+    /* 0x78 - 0xa0 */ int unk_x78; // 1 on new items, 0x92B on very old items?
     /* 0x7c - 0xa4 */ int unk_x7c[3];
 
     static void* vtable_ptr;
