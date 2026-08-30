@@ -29,7 +29,7 @@ void SceneLineItem::log(const SceneLineItem& item) {
 	for (auto v : item.unk_x24) {
 		unusual |= v != nullptr;
 	}
-	unusual |= item.unk_x78 != 1;
+	// unusual |= item.unk_x78 != 1; // Can actually have many different values
 	for (auto v : item.unk_x7c) {
 		unusual |= v != 0;
 	}
@@ -53,13 +53,18 @@ SceneLineItem* SceneLineItem::tryCast(SceneItem* item) {
 
     auto* lineItem = reinterpret_cast<SceneLineItem*>(item);
 
-    if(SceneLineItem::vtable_ptr && lineItem->vtable == SceneLineItem::vtable_ptr) return lineItem;
+    if (SceneLineItem::vtable_ptr) {
+        if (lineItem->vtable == SceneLineItem::vtable_ptr) {
+            return lineItem;
+        } else {
+            return nullptr;
+        }
+    }
 
+    if (lineItem->unk_x4 != 3) return nullptr;
     if (lineItem->unk_xc != 0) return nullptr;
     if (lineItem->unk_xe != 0) return nullptr;
-
-    if (lineItem->unk_x78 != 1 && lineItem->unk_x78 != 0x92B) return nullptr;
-
+    if (lineItem->unk_x78 == 0) return nullptr;
 
     if (!(lineItem->unk_x20 == 0x0 || (lineItem->unk_x20 == 0x2 && lineItem->unk_x21 == 0x2))) return nullptr;
 
